@@ -7,413 +7,393 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;background:linear-gradient(135deg,#0f1923 0%,#1a2a3a 100%);color:#e0e6ed;min-height:100vh}
-.container{max-width:1400px;margin:0 auto;padding:20px}
-.header{text-align:center;padding:28px 0 20px}
-.header h1{font-size:28px;background:linear-gradient(90deg,#64b5f6,#4fc3f7,#81c784);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.header p{color:#8a9bb5;font-size:14px;margin-top:6px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-.panel{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;backdrop-filter:blur(10px)}
-.panel h2{font-size:17px;color:#81c784;margin-bottom:16px;display:flex;align-items:center;gap:8px}
-.panel h2 .icon{font-size:22px}
-.form-group{margin-bottom:14px}
-.form-group label{display:block;font-size:13px;color:#8a9bb5;margin-bottom:4px}
-.form-group select,.form-group input{width:100%;padding:10px 12px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:8px;color:#e0e6ed;font-size:14px;outline:none;transition:border-color .2s}
+.container{max-width:1500px;margin:0 auto;padding:20px}
+.header{text-align:center;padding:24px 0 12px}
+.header h1{font-size:26px;background:linear-gradient(90deg,#64b5f6,#4fc3f7,#81c784);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.header p{color:#8a9bb5;font-size:12px;margin-top:4px}
+.preset-bar{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.preset-btn{padding:8px 16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:20px;color:#b0bec5;font-size:12px;cursor:pointer;transition:all .2s}
+.preset-btn:hover,.preset-btn.active{border-color:#4fc3f7;color:#4fc3f7;background:rgba(79,195,247,0.08)}
+.preset-btn .name{font-weight:600;font-size:13px}
+.preset-btn .tag{display:block;font-size:10px;color:#8a9bb5;margin-top:1px}
+.grid{display:grid;grid-template-columns:1.1fr 1fr;gap:16px}
+.panel{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:18px;backdrop-filter:blur(10px)}
+.panel h2{font-size:15px;color:#81c784;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.panel h2 .icon{font-size:18px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.form-group{margin-bottom:10px}
+.form-group label{display:block;font-size:11px;color:#8a9bb5;margin-bottom:2px}
+.form-group select,.form-group input{width:100%;padding:8px 10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);border-radius:6px;color:#e0e6ed;font-size:12px;outline:none;transition:border-color .2s}
 .form-group select:focus,.form-group input:focus{border-color:#4fc3f7}
-.form-group input[type=range]{-webkit-appearance:none;height:6px;background:rgba(255,255,255,0.12);border-radius:3px;padding:0;border:none}
-.form-group input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;background:#4fc3f7;border-radius:50%;cursor:pointer}
-.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.form-section{margin-bottom:20px}
-.form-section h3{font-size:14px;color:#4fc3f7;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,0.08)}
-.btn{width:100%;padding:14px;background:linear-gradient(135deg,#4fc3f7,#29b6f6);border:none;border-radius:10px;color:#0f1923;font-size:16px;font-weight:700;cursor:pointer;transition:transform .1s,box-shadow .2s;margin-top:8px}
-.btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(79,195,247,0.3)}
+.form-group input[type=range]{-webkit-appearance:none;height:4px;background:rgba(255,255,255,0.12);border-radius:2px;padding:0;border:none;cursor:pointer}
+.form-group input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;background:#4fc3f7;border-radius:50%;cursor:pointer}
+.range-row{display:flex;align-items:center;gap:6px}
+.range-row input[type=range]{flex:1}
+.range-row .range-val{min-width:40px;text-align:right;font-size:12px;color:#4fc3f7;font-weight:600}
+.form-section{margin-bottom:14px}
+.form-section h3{font-size:12px;color:#4fc3f7;margin-bottom:8px;padding-bottom:4px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.btn-row{display:flex;gap:8px;margin-top:6px}
+.btn{flex:1;padding:12px;background:linear-gradient(135deg,#4fc3f7,#29b6f6);border:none;border-radius:8px;color:#0f1923;font-size:14px;font-weight:700;cursor:pointer;transition:transform .1s,box-shadow .2s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(79,195,247,0.3)}
 .btn:active{transform:scale(.98)}
-/* Output Panel */
-.result-header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
-.rate-display{flex:1;text-align:center}
-.rate-number{font-size:56px;font-weight:800;background:linear-gradient(90deg,#4fc3f7,#81c784);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.rate-label{font-size:13px;color:#8a9bb5;margin-top:4px}
-.breakdown{margin-top:20px}
-.breakdown-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.06);font-size:14px}
-.breakdown-row .val{font-weight:600;font-variant-numeric:tabular-nums}
-.breakdown-row .label{color:#8a9bb5}
-.bar-wrap{height:6px;background:rgba(255,255,255,0.08);border-radius:3px;margin-top:6px;overflow:hidden}
-.bar-fill{height:100%;border-radius:3px;transition:width .4s}
-.tag{display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:600}
+.btn-outline{background:transparent;border:1px solid rgba(79,195,247,0.4);color:#4fc3f7}
+
+.rate-display{text-align:center;margin-bottom:14px}
+.rate-number{font-size:54px;font-weight:800;background:linear-gradient(90deg,#4fc3f7,#81c784);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1}
+.rate-label{font-size:11px;color:#8a9bb5;margin-top:2px}
+.tags{margin-bottom:12px;display:flex;flex-wrap:wrap;gap:4px;justify-content:center}
+.tag{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600}
 .tag-green{background:rgba(129,199,132,0.2);color:#81c784}
 .tag-blue{background:rgba(79,195,247,0.2);color:#4fc3f7}
 .tag-orange{background:rgba(255,183,77,0.2);color:#ffb74d}
 .tag-red{background:rgba(239,83,80,0.2);color:#ef5350}
-.recommend-box{background:rgba(79,195,247,0.08);border:1px solid rgba(79,195,247,0.2);border-radius:12px;padding:16px;margin-top:20px}
-.recommend-box h3{color:#4fc3f7;font-size:14px;margin-bottom:8px}
-.recommend-box ul{margin:0;padding-left:18px}
-.recommend-box li{font-size:13px;color:#b0bec5;margin-bottom:4px;line-height:1.6}
-.vs-box{margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.vs-card{background:rgba(255,255,255,0.04);border-radius:10px;padding:14px;text-align:center}
-.vs-card .vs-rate{font-size:24px;font-weight:700;margin:6px 0}
-.vs-card .vs-label{font-size:12px;color:#8a9bb5}
+
+.waterfall{display:flex;align-items:flex-end;gap:4px;height:130px;margin:12px 0;padding:0 6px}
+.wf-col{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
+.wf-bar{border-radius:4px 4px 0 0;width:100%;min-width:32px;transition:height .4s;position:relative}
+.wf-val{font-size:10px;font-weight:700;margin-bottom:2px;text-align:center}
+.wf-label{font-size:9px;color:#8a9bb5;text-align:center;margin-top:4px;line-height:1.2}
+
+.breakdown{margin-top:12px}
+.breakdown h3{font-size:12px;color:#4fc3f7;margin-bottom:8px}
+.breakdown-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:12px}
+.breakdown-row .label{color:#8a9bb5}
+.breakdown-row .val{font-weight:600}
+.breakdown-row.total{border-top:2px solid rgba(79,195,247,0.3);border-bottom:none;font-size:14px;font-weight:700;margin-top:6px;padding-top:10px}
+.breakdown-row.total .val{color:#4fc3f7}
+
+.vs-box{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.vs-card{background:rgba(255,255,255,0.04);border-radius:8px;padding:12px;text-align:center}
+.vs-card .vs-rate{font-size:24px;font-weight:700;margin:4px 0}
+.vs-card .vs-label{font-size:10px;color:#8a9bb5}
 .vs-card.old .vs-rate{color:#ef5350}
 .vs-card.new .vs-rate{color:#81c784}
-.diff-badge{grid-column:1/-1;text-align:center;padding:10px;background:rgba(129,199,132,0.1);border-radius:8px;font-size:14px;color:#81c784}
-.footer{text-align:center;color:#5a6d80;font-size:11px;margin-top:30px;padding:16px}
-@media(max-width:900px){.grid{grid-template-columns:1fr}}
+.vs-diff{grid-column:1/-1;text-align:center;padding:8px;border-radius:6px;font-size:12px;font-weight:600}
+
+.recommend-box{background:rgba(79,195,247,0.06);border:1px solid rgba(79,195,247,0.15);border-radius:8px;padding:12px;margin-top:12px}
+.recommend-box h3{color:#4fc3f7;font-size:12px;margin-bottom:4px}
+.recommend-box ul{margin:0;padding-left:14px}
+.recommend-box li{font-size:11px;color:#b0bec5;margin-bottom:2px;line-height:1.4}
+
+.footer{text-align:center;color:#5a6d80;font-size:9px;margin-top:24px;padding:12px}
+@media(max-width:960px){.grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="container">
 <div class="header">
   <h1>AI 智能报价器</h1>
-  <p>科技型小微企业差异化定价引擎 | 基于 RAROC + 赛道调节 + 综合贡献联动</p>
+  <p>基于 RAROC 框架 × 赛道调节 × 综合贡献联动 | 定价区间 2.5%–3.5% | 2026年7月 1年期LPR 3.0%</p>
+</div>
+
+<div class="preset-bar">
+  <button class="preset-btn" onclick="loadPreset('xinyuan')"><span class="name">🔬 芯原生物</span><span class="tag">A类硬科技·低贡献</span></button>
+  <button class="preset-btn" onclick="loadPreset('yunzhi')"><span class="name">💻 云智软件</span><span class="tag">C类短周期·高贡献</span></button>
+  <button class="preset-btn" onclick="loadPreset('jinggong')"><span class="name">⚙️ 精工装备</span><span class="tag">B类中周期·中贡献</span></button>
+  <button class="preset-btn" onclick="loadPreset('kece')"><span class="name">🔧 科测检测</span><span class="tag">D类平台型·低贡献</span></button>
 </div>
 
 <div class="grid">
-<!-- ======== LEFT: INPUT ======== -->
-<div class="panel" id="inputPanel">
+<div class="panel">
 <h2><span class="icon">📋</span> 企业信息录入</h2>
 
-<div class="form-section">
-<h3>🏷️ 基本信息</h3>
+<div class="form-section"><h3>🏷️ 基本信息</h3>
 <div class="form-row">
-  <div class="form-group"><label>企业成立年限（年）</label><input type="number" id="age" value="5" min="0" max="30" step="1"></div>
-  <div class="form-group"><label>员工人数</label><input type="number" id="employees" value="45" min="5" max="2000" step="1"></div>
+  <div class="form-group"><label>成立年限（年）</label><input type="number" id="age" value="5" min="0" max="30"></div>
+  <div class="form-group"><label>员工人数</label><input type="number" id="employees" value="65" min="2" max="5000"></div>
 </div>
 <div class="form-group"><label>所处生命周期</label>
-  <select id="lifecycle">
-    <option value="0">种子期（技术研发阶段）</option>
-    <option value="1">初创期（产品试制阶段）</option>
-    <option value="2" selected>成长期（市场扩张阶段）</option>
-    <option value="3">成熟期（规模稳定阶段）</option>
-  </select></div>
+  <select id="lifecycle"><option value="0">种子期</option><option value="1">初创期</option><option value="2" selected>成长期</option><option value="3">成熟期</option></select></div>
 </div>
 
-<div class="form-section">
-<h3>💡 科技创新能力</h3>
+<div class="form-section"><h3>💡 科技创新</h3>
 <div class="form-row">
-  <div class="form-group"><label>有效专利数量</label><input type="number" id="patents" value="8" min="0" max="500" step="1"></div>
-  <div class="form-group"><label>研发投入占营收比 (%)</label><input type="range" id="rdRatio" value="15" min="1" max="45" step="1" oninput="document.getElementById('rdRatioVal').textContent=this.value+'%'"><span id="rdRatioVal" style="color:#4fc3f7;font-size:13px">15%</span></div>
+  <div class="form-group"><label>有效专利数</label><input type="number" id="patents" value="8" min="0" max="500"></div>
+  <div class="form-group"><label>研发投入占比</label>
+    <div class="range-row"><input type="range" id="rdRatio" value="20" min="1" max="45" oninput="$('#rdRatioVal').textContent=this.value+'%'"><span class="range-val" id="rdRatioVal">20%</span></div></div>
 </div>
 <div class="form-row">
-  <div class="form-group"><label>高价值专利占比 (%)</label><input type="range" id="patentQuality" value="40" min="0" max="100" step="5" oninput="document.getElementById('pqVal').textContent=this.value+'%'"><span id="pqVal" style="color:#4fc3f7;font-size:13px">40%</span></div>
-  <div class="form-group"><label>核心技术团队背景</label><select id="teamBg">
-    <option value="3">顶尖（海归博士/院士团队）</option>
-    <option value="2" selected>优秀（985硕博/大厂背景）</option>
-    <option value="1">良好（本科/行业经验丰富）</option>
-    <option value="0">一般</option>
-  </select></div>
+  <div class="form-group"><label>高价值专利占比</label>
+    <div class="range-row"><input type="range" id="patentQuality" value="40" min="0" max="100" step="5" oninput="$('#pqVal').textContent=this.value+'%'"><span class="range-val" id="pqVal">40%</span></div></div>
+  <div class="form-group"><label>核心团队背景</label><select id="teamBg">
+    <option value="3">顶尖（院士/海归博士）</option><option value="2" selected>优秀（985硕博/大厂）</option>
+    <option value="1">良好（本科/行业经验）</option><option value="0">一般</option></select></div>
 </div>
 </div>
 
-<div class="form-section">
-<h3>📊 经营能力</h3>
+<div class="form-section"><h3>📊 经营能力</h3>
 <div class="form-row">
-  <div class="form-group"><label>近一年营收（万元）</label><input type="number" id="revenue" value="1200" min="0" max="100000" step="10"></div>
-  <div class="form-group"><label>营收同比增长率 (%)</label><input type="range" id="revGrowth" value="20" min="-50" max="200" step="1" oninput="document.getElementById('rgVal').textContent=(this.value>0?'+':'')+this.value+'%'"><span id="rgVal" style="color:#4fc3f7;font-size:13px">+20%</span></div>
+  <div class="form-group"><label>年营收（万元）</label><input type="number" id="revenue" value="1800" min="10" max="200000"></div>
+  <div class="form-group"><label>营收同比增长</label>
+    <div class="range-row"><input type="range" id="revGrowth" value="45" min="-50" max="200" oninput="$('#rgVal').textContent=(this.value>0?'+':'')+this.value+'%'"><span class="range-val" id="rgVal">+45%</span></div></div>
 </div>
 <div class="form-row">
-  <div class="form-group"><label>资产负债率 (%)</label><input type="range" id="leverage" value="50" min="10" max="92" step="1" oninput="document.getElementById('levVal').textContent=this.value+'%'"><span id="levVal" style="color:#4fc3f7;font-size:13px">50%</span></div>
-  <div class="form-group"><label>流动比率</label><input type="range" id="curRatio" value="1.5" min="0.3" max="3.5" step="0.05" oninput="document.getElementById('crVal').textContent=this.value"><span id="crVal" style="color:#4fc3f7;font-size:13px">1.5</span></div>
+  <div class="form-group"><label>资产负债率</label>
+    <div class="range-row"><input type="range" id="leverage" value="45" min="10" max="92" oninput="$('#levVal').textContent=this.value+'%'"><span class="range-val" id="levVal">45%</span></div></div>
+  <div class="form-group"><label>流动比率</label>
+    <div class="range-row"><input type="range" id="curRatio" value="1.8" min="0.3" max="3.5" step="0.05" oninput="$('#crVal').textContent=this.value"><span class="range-val" id="crVal">1.8</span></div></div>
 </div>
 <div class="form-row">
-  <div class="form-group"><label>经营现金流/总负债</label><input type="range" id="ocfCover" value="0.3" min="-0.2" max="1.0" step="0.01" oninput="document.getElementById('ocfVal').textContent=this.value"><span id="ocfVal" style="color:#4fc3f7;font-size:13px">0.3</span></div>
-  <div class="form-group"><label>月均结算流水（万元）</label><input type="number" id="settleFlow" value="200" min="0" max="50000" step="10"></div>
+  <div class="form-group"><label>经营现金流/总负债</label>
+    <div class="range-row"><input type="range" id="ocfCover" value="0.40" min="-0.3" max="1.0" step="0.01" oninput="$('#ocfVal').textContent=this.value"><span class="range-val" id="ocfVal">0.40</span></div></div>
+  <div class="form-group"><label>月均结算流水（万元）</label><input type="number" id="settleFlow" value="300" min="0" max="50000"></div>
 </div>
 </div>
 
-<div class="form-section">
-<h3>🛡️ 信用与担保</h3>
+<div class="form-section"><h3>🛡️ 信用与担保</h3>
 <div class="form-row">
-  <div class="form-group"><label>历史逾期次数</label><input type="number" id="overdue" value="0" min="0" max="10" step="1"></div>
-  <div class="form-group"><label>抵质押覆盖率 (%)</label><input type="range" id="collCover" value="20" min="0" max="100" step="5" oninput="document.getElementById('ccVal').textContent=this.value+'%'"><span id="ccVal" style="color:#4fc3f7;font-size:13px">20%</span></div>
+  <div class="form-group"><label>历史逾期次数</label><input type="number" id="overdue" value="0" min="0" max="10"></div>
+  <div class="form-group"><label>抵质押覆盖率</label>
+    <div class="range-row"><input type="range" id="collCover" value="0" min="0" max="100" step="5" oninput="$('#ccVal').textContent=this.value+'%'"><span class="range-val" id="ccVal">0%</span></div></div>
 </div>
 <div class="form-group"><label>担保方式</label><select id="guarantee">
-  <option value="credit" selected>信用贷款（无抵押）</option>
-  <option value="patent">知识产权质押</option>
-  <option value="gov">政府风险补偿/担保基金</option>
-  <option value="collateral">传统抵质押</option>
-</select></div>
+  <option value="credit" selected>信用贷款</option><option value="patent">知识产权质押</option>
+  <option value="gov">政府风险补偿/担保基金</option><option value="collateral">传统抵质押</option></select></div>
 </div>
 
-<div class="form-section">
-<h3>🏦 银行综合贡献</h3>
+<div class="form-section"><h3>🏦 银行综合贡献</h3>
 <div class="form-row">
-  <div class="form-group"><label>日均存款（万元）</label><input type="number" id="deposit" value="80" min="0" max="50000" step="1"></div>
-  <div class="form-group"><label>代发工资人数</label><input type="number" id="payroll" value="25" min="0" max="5000" step="1"></div>
+  <div class="form-group"><label>日均存款（万元）</label><input type="number" id="deposit" value="200" min="0" max="50000"></div>
+  <div class="form-group"><label>代发工资人数</label><input type="number" id="payroll" value="65" min="0" max="5000"></div>
 </div>
 <div class="form-row">
-  <div class="form-group"><label>结算活跃度（月均笔数）</label><input type="number" id="settleCnt" value="15" min="0" max="500" step="1"></div>
-  <div class="form-group"><label>产品交叉销售数</label><input type="number" id="crossSell" value="3" min="0" max="10" step="1"></div>
+  <div class="form-group"><label>月均结算笔数</label><input type="number" id="settleCnt" value="30" min="0" max="500"></div>
+  <div class="form-group"><label>产品交叉销售数</label><input type="number" id="crossSell" value="4" min="0" max="10"></div>
 </div>
-<div class="form-group"><label>合作年限（年）</label><input type="number" id="relYears" value="3" min="0" max="15" step="1"></div>
+<div class="form-group"><label>合作年限（年）</label><input type="number" id="relYears" value="3" min="0" max="15"></div>
 </div>
 
-<div class="form-section">
-<h3>🎯 行业赛道分类</h3>
-<div class="form-group"><label>赛道类别</label><select id="sector">
+<div class="form-section"><h3>🎯 行业赛道</h3>
+<div class="form-group"><select id="sector">
   <option value="A">A类 — 长周期硬科技（创新药/集成电路/航空航天）</option>
   <option value="B">B类 — 中周期技术驱动（高端装备/新材料/医疗器械）</option>
   <option value="C" selected>C类 — 短周期快迭代（软件SaaS/AI应用/消费电子）</option>
-  <option value="D">D类 — 平台与服务型（科技咨询/检测认证/IT外包）</option>
-</select></div>
+  <option value="D">D类 — 平台与服务型（科技咨询/检测认证/IT外包）</option></select></div>
 </div>
 
-<button class="btn" onclick="calculate()">⚡ 生成报价</button>
+<div class="btn-row">
+  <button class="btn" onclick="calculate()">⚡ 生成报价</button>
+  <button class="btn btn-outline" onclick="calculate()">🔄 刷新</button>
+</div>
 </div>
 
-<!-- ======== RIGHT: OUTPUT ======== -->
-<div class="panel" id="outputPanel">
+<div class="panel">
 <h2><span class="icon">📈</span> 定价结果</h2>
-<div class="result-header">
-  <div class="rate-display">
-    <div class="rate-number" id="finalRate">--</div>
-    <div class="rate-label">最终执行年利率</div>
-  </div>
+<div class="rate-display">
+  <div class="rate-number" id="finalRate">--</div>
+  <div class="rate-label">2.0版最终执行年利率（区间 2.5%–3.5%）</div>
 </div>
-
-<div id="tags"></div>
-
+<div class="tags" id="tags"></div>
+<div class="waterfall" id="waterfall"></div>
 <div class="breakdown">
-<h3 style="color:#4fc3f7;font-size:14px;margin-bottom:12px">🔍 定价拆解</h3>
-<div class="breakdown-row"><span class="label">FTP 资金成本</span><span class="val" style="color:#90a4ae" id="ftpLine">--</span></div>
-<div class="bar-wrap"><div class="bar-fill" style="width:30%;background:#546e7a" id="ftpBar"></div></div>
-
-<div class="breakdown-row"><span class="label">运营成本率</span><span class="val" style="color:#90a4ae" id="opLine">--</span></div>
-<div class="bar-wrap"><div class="bar-fill" style="width:10%;background:#607d8b" id="opBar"></div></div>
-
-<div class="breakdown-row"><span class="label">预期损失溢价 EL = PD × LGD × (1+λ_s)</span><span class="val" style="color:#ff8a65" id="elLine">--</span></div>
-<div class="bar-wrap"><div class="bar-fill" style="width:35%;background:#ff7043" id="elBar"></div></div>
-
-<div class="breakdown-row"><span class="label">资本成本率 RW × k × RAROC*</span><span class="val" style="color:#ffb74d" id="capLine">--</span></div>
-<div class="bar-wrap"><div class="bar-fill" style="width:20%;background:#ffa726" id="capBar"></div></div>
-
+<h3>🔍 定价拆解明细</h3>
+<div class="breakdown-row"><span class="label">FTP 资金成本</span><span class="val" style="color:#90a4ae" id="ftpLine">1.50%</span></div>
+<div class="breakdown-row"><span class="label">运营成本率 c</span><span class="val" style="color:#90a4ae" id="opLine">0.15%</span></div>
+<div class="breakdown-row"><span class="label">预期损失 EL = PD×LGD×(1+λ_s)</span><span class="val" style="color:#ff8a65" id="elLine">--</span></div>
+<div class="breakdown-row"><span class="label">资本成本 RW×k×RAROC*</span><span class="val" style="color:#ffb74d" id="capLine">0.63%</span></div>
 <div class="breakdown-row"><span class="label">综合贡献减点 Δ_CAF</span><span class="val" style="color:#81c784" id="cafLine">--</span></div>
-<div class="bar-wrap"><div class="bar-fill" style="width:15%;background:#66bb6a" id="cafBar"></div></div>
-
-<div style="border-top:2px solid rgba(255,255,255,0.12);margin:12px 0"></div>
-<div class="breakdown-row" style="font-size:16px;font-weight:700">
-  <span>最终执行利率</span><span class="val" style="color:#4fc3f7" id="finalLine">--</span>
+<div class="breakdown-row total"><span>2.0版最终执行利率</span><span class="val" id="finalLine">--</span></div>
 </div>
-</div>
-
-<div id="recommend"></div>
-
 <div class="vs-box" id="vsBox"></div>
+<div id="recommend"></div>
 </div>
 </div>
 </div>
 <div class="footer">
-  基于 RAROC 理论框架 | FTP = 1.80% | 运营成本率 c = 0.40% | 资本成本率 = 1.18% | δ_max = 30BP<br>
-  参数参考：2026年7月1年期LPR 3.0%，商业银行净息差 1.42%（2025Q4），北京银行 2025 年末净息差 1.47%
+  参数基准：2026年7月 1年期LPR 3.0% | FTP=1.50% c=0.15% RAROC*=8% LGD基准=30% δ_max=20BP | 利率区间 2.5%–3.5%<br>
+  公式：r = min(3.50%, max(FTP+c, FTP + c + PD×LGD×(1+λ_s) + RW×k×RAROC* − Δ_CAF))
 </div>
 
 <script>
-// ============ GLOBAL PARAMETERS ============
-const FTP = 0.0180;        // 内部资金转移定价（参考1年期LPR 3.0% 对应内部曲线）
-const C_OP = 0.0040;       // 运营成本分摊率
-const RW = 0.75;           // 小微企业风险权重
-const K = 0.105;           // 资本充足率要求 10.5%
-const RAROC_TARGET = 0.15; // 目标RAROC
-const CAP_COST = RW * K * RAROC_TARGET; // ≈ 1.18%
-const DELTA_MAX = 0.0030;  // 综合贡献最大减点 30BP
+const $ = id => document.getElementById(id);
 
-// Sector adjustment λ_s
-const SECTOR_LAMBDA = {
-  'A': 0.40,   // 长周期硬科技 +40%
-  'B': 0.20,   // 中周期技术驱动 +20%
-  'C': 0.00,   // 短周期快迭代 基准
-  'D': -0.08   // 平台服务型 -8%
+const FTP = 0.015;
+const C_OP = 0.0015;
+const CAP_COST = 0.0063;
+const DELTA_MAX = 0.002;
+const LGD_BASE = 0.3;
+const RATE_CAP = 0.035;
+const RATE_FLOOR = 0.0165;
+const SECTOR_LAMBDA = {"A": 0.25, "B": 0.12, "C": 0.0, "D": -0.08};
+const LGD_MAP = {"gov": 0.12, "collateral": 0.15, "patent": 0.22, "credit": 0.3};
+
+const PRESETS = {
+  xinyuan: { age:3, employees:28, lifecycle:'1', patents:12, rdRatio:35, patentQuality:70,
+    teamBg:'3', revenue:200, revGrowth:5, leverage:35, curRatio:2.8, ocfCover:0.05,
+    settleFlow:50, overdue:0, collCover:0, guarantee:'gov', deposit:15, payroll:28,
+    settleCnt:5, crossSell:1, relYears:1, sector:'A' },
+  yunzhi: { age:5, employees:65, lifecycle:'2', patents:8, rdRatio:20, patentQuality:40,
+    teamBg:'2', revenue:1800, revGrowth:45, leverage:45, curRatio:1.8, ocfCover:0.40,
+    settleFlow:300, overdue:0, collCover:0, guarantee:'credit', deposit:200, payroll:65,
+    settleCnt:30, crossSell:4, relYears:3, sector:'C' },
+  jinggong: { age:4, employees:120, lifecycle:'2', patents:15, rdRatio:12, patentQuality:50,
+    teamBg:'2', revenue:3000, revGrowth:25, leverage:62, curRatio:0.9, ocfCover:0.15,
+    settleFlow:200, overdue:1, collCover:30, guarantee:'patent', deposit:100, payroll:0,
+    settleCnt:12, crossSell:2, relYears:2, sector:'B' },
+  kece: { age:8, employees:40, lifecycle:'3', patents:2, rdRatio:5, patentQuality:10,
+    teamBg:'1', revenue:900, revGrowth:10, leverage:30, curRatio:2.2, ocfCover:0.50,
+    settleFlow:100, overdue:0, collCover:10, guarantee:'credit', deposit:60, payroll:0,
+    settleCnt:8, crossSell:1, relYears:6, sector:'D' }
 };
 
-// PD mapping: simplified logistic from key features
-function estimatePD(data) {
-  // Key drivers from the logistic model coefficients
-  let score = 0;
+function loadPreset(key) {
+  const p = PRESETS[key];
+  for (const [id, val] of Object.entries(p)) {
+    const el = document.getElementById(id);
+    if (el) { el.value = val; el.dispatchEvent(new Event('input')); }
+  }
+  ['rdRatioVal','pqVal','rgVal','levVal','crVal','ocfVal','ccVal'].forEach(id => {
+    const e = document.getElementById(id); if (e) e.textContent = '';
+  });
+  document.getElementById('rdRatioVal').textContent = p.rdRatio + '%';
+  document.getElementById('pqVal').textContent = p.patentQuality + '%';
+  document.getElementById('rgVal').textContent = (p.revGrowth > 0 ? '+' : '') + p.revGrowth + '%';
+  document.getElementById('levVal').textContent = p.leverage + '%';
+  document.getElementById('crVal').textContent = p.curRatio;
+  document.getElementById('ocfVal').textContent = p.ocfCover;
+  document.getElementById('ccVal').textContent = p.collCover + '%';
+  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+  event.target.closest('.preset-btn').classList.add('active');
+  calculate();
+}
 
-  // Positive risk factors (increase PD)
-  score += 0.75 * Math.min(data.leverage / 100, 0.92);  // leverage
-  score += 0.90 * (data.overdue / 3);                     // overdue (normalized)
-  score += 0.38 * (data.lifecycle === 0 ? 1 : data.lifecycle === 1 ? 0.5 : 0); // early stage
-
-  // Negative risk factors (decrease PD)
-  score -= 0.55 * (data.rdRatio / 100);                  // R&D intensity
-  score -= 0.45 * Math.max(-0.5, data.revGrowth / 100);   // revenue growth
-  score -= 0.70 * data.ocfCover;                           // cashflow coverage
-  score -= 0.40 * (data.curRatio - 1.0);                  // current ratio above 1
-  score -= 0.30 * (Math.log(Math.max(data.revenue, 50)) - Math.log(50)) / 5; // size
-  score -= 0.20 * (data.collCover / 100);                 // collateral
-  score -= 0.30 * Math.min(data.patents / 20, 1);         // patent count
-  score -= 0.25 * (data.patentQuality / 100);             // patent quality
-  score -= 0.45 * (data.guarantee === 'gov' ? 1 : data.guarantee === 'patent' ? 0.5 : 0);
-  score -= 0.30 * (data.teamBg / 3);                      // team background
-
-  // Interaction: high leverage + low liquidity = danger
-  if (data.leverage > 60 && data.curRatio < 1.0) score += 0.45;
-  // Interaction: high R&D + positive cashflow = safety
-  if (data.rdRatio > 10 && data.ocfCover > 0.2) score -= 0.25;
-
-  // Map score to PD via sigmoid
-  const pd = 1.0 / (1.0 + Math.exp(-(score - 0.5)));
-  return Math.max(0.005, Math.min(0.40, pd));
+function estimatePD(d) {
+  let z = 0;
+  z += 0.30 * (d.leverage / 100 - 0.45);
+  z += 0.45 * Math.min(d.overdue, 4) / 2;
+  if (d.lifecycle == 0) z += 0.20; else if (d.lifecycle == 1) z += 0.08;
+  z -= 0.35 * (d.rdRatio / 100);
+  z -= 0.30 * Math.max(-0.5, d.revGrowth / 100);
+  z -= 0.50 * d.ocfCover;
+  z -= 0.25 * Math.max(0, d.curRatio - 1.0);
+  z -= 0.18 * Math.min(Math.log(Math.max(d.revenue, 30)) / Math.log(10) - 1.5, 2);
+  z -= 0.18 * Math.min(d.patents / 15, 1);
+  z -= 0.15 * (d.patentQuality / 100);
+  z -= 0.25 * (d.guarantee === 'gov' ? 1 : d.guarantee === 'collateral' ? 0.6 : d.guarantee === 'patent' ? 0.4 : 0);
+  z -= 0.18 * (d.teamBg / 3);
+  if (d.leverage > 55 && d.curRatio < 1.0) z += 0.25;
+  if (d.rdRatio > 10 && d.ocfCover > 0.2) z -= 0.15;
+  const pd = 1.0 / (1.0 + Math.exp(-(z + 0.9)));
+  return Math.max(0.003, Math.min(0.25, pd));
 }
 
 function calculate() {
-  // Read inputs
-  const data = {
-    age: parseInt(document.getElementById('age').value) || 5,
-    employees: parseInt(document.getElementById('employees').value) || 45,
-    lifecycle: parseInt(document.getElementById('lifecycle').value),
-    patents: parseInt(document.getElementById('patents').value) || 8,
-    rdRatio: parseInt(document.getElementById('rdRatio').value) || 15,
-    patentQuality: parseInt(document.getElementById('patentQuality').value) || 40,
-    teamBg: parseInt(document.getElementById('teamBg').value),
-    revenue: parseFloat(document.getElementById('revenue').value) || 1200,
-    revGrowth: parseFloat(document.getElementById('revGrowth').value) || 20,
-    leverage: parseFloat(document.getElementById('leverage').value) || 50,
-    curRatio: parseFloat(document.getElementById('curRatio').value) || 1.5,
-    ocfCover: parseFloat(document.getElementById('ocfCover').value) || 0.3,
-    settleFlow: parseFloat(document.getElementById('settleFlow').value) || 200,
-    overdue: parseInt(document.getElementById('overdue').value) || 0,
-    collCover: parseInt(document.getElementById('collCover').value) || 20,
-    guarantee: document.getElementById('guarantee').value,
-    deposit: parseFloat(document.getElementById('deposit').value) || 80,
-    payroll: parseInt(document.getElementById('payroll').value) || 25,
-    settleCnt: parseInt(document.getElementById('settleCnt').value) || 15,
-    crossSell: parseInt(document.getElementById('crossSell').value) || 3,
-    relYears: parseInt(document.getElementById('relYears').value) || 3,
-    sector: document.getElementById('sector').value
+  const d = {
+    age: +$('age').value||5, employees: +$('employees').value||65,
+    lifecycle: +$('lifecycle').value, patents: +$('patents').value||8,
+    rdRatio: +$('rdRatio').value||20, patentQuality: +$('patentQuality').value||40,
+    teamBg: +$('teamBg').value, revenue: +$('revenue').value||1800,
+    revGrowth: +$('revGrowth').value||45, leverage: +$('leverage').value||45,
+    curRatio: +$('curRatio').value||1.8, ocfCover: +$('ocfCover').value||0.4,
+    settleFlow: +$('settleFlow').value||300, overdue: +$('overdue').value||0,
+    collCover: +$('collCover').value||0, guarantee: $('guarantee').value,
+    deposit: +$('deposit').value||200, payroll: +$('payroll').value||65,
+    settleCnt: +$('settleCnt').value||30, crossSell: +$('crossSell').value||4,
+    relYears: +$('relYears').value||3, sector: $('sector').value
   };
 
-  // 1. Estimate PD
-  const pd = estimatePD(data);
-
-  // 2. Estimate LGD based on guarantee type
-  let lgd;
-  switch(data.guarantee) {
-    case 'gov': lgd = 0.20; break;
-    case 'collateral': lgd = 0.25; break;
-    case 'patent': lgd = 0.35; break;
-    default: lgd = 0.45; // credit
-  }
-  // Adjust for collateral coverage
-  lgd = Math.max(0.05, lgd * (1 - 0.5 * (data.collCover / 100)));
-  lgd = Math.min(0.60, lgd);
-
-  // 3. Sector adjustment
-  const lambdaS = SECTOR_LAMBDA[data.sector];
-
-  // 4. EL = PD × LGD × (1 + λ_s)
+  const pd = estimatePD(d);
+  let lgd = LGD_MAP[d.guarantee];
+  lgd = Math.max(0.05, Math.min(0.45, lgd * (1 - 0.5 * (d.collCover / 100))));
+  const lambdaS = SECTOR_LAMBDA[d.sector];
   const el = pd * lgd * (1 + lambdaS);
+  const elOld = pd * lgd;
 
-  // 5. Base rate (1.0 model)
-  const rBase = FTP + C_OP + el + CAP_COST;
-
-  // 6. Calculate CAF (Customer Aggregate Factor)
-  // Deposit contribution score
-  const depositRatio = data.revenue > 0 ? Math.min(data.deposit / (data.revenue / 12 * 0.3), 1) : 0;
-  const sDeposit = Math.min(depositRatio, 1);
-
-  // Payroll score
-  const sPayroll = Math.min(data.payroll / 30, 1);
-
-  // Settlement score
-  const sSettle = Math.min(data.settleCnt / 20, 1);
-
-  // Cross-sell score
-  const sCross = Math.min(data.crossSell / 6, 1);
-
-  // Relationship years score
-  const sRel = Math.min(data.relYears / 12, 1);
-
-  // Weighted CAF
-  const sCaf = 0.30 * sDeposit + 0.25 * sPayroll + 0.25 * sSettle + 0.15 * sCross + 0.05 * sRel;
+  const depositRatio = d.revenue > 0 ? Math.min(d.deposit / Math.max(d.revenue / 12 * 0.3, 1), 1) : 0;
+  const sCaf = 0.30*Math.min(depositRatio,1) + 0.25*Math.min(d.payroll/30,1) + 0.25*Math.min(d.settleCnt/20,1) + 0.15*Math.min(d.crossSell/6,1) + 0.05*Math.min(d.relYears/12,1);
   const deltaCaf = DELTA_MAX * sCaf;
 
-  // 7. Final rate (2.0 model)
-  const rFinal = Math.max(FTP + C_OP, rBase - deltaCaf);
+  const rOldUncap = FTP + C_OP + elOld + CAP_COST;
+  const rOld = Math.max(RATE_FLOOR, rOldUncap);
+  const rNewUncap = FTP + C_OP + el + CAP_COST - deltaCaf;
+  const rNew = Math.min(RATE_CAP, Math.max(RATE_FLOOR, rNewUncap));
 
-  // 8. Old model rate (1.0, no sector, no CAF)
-  const rOld = Math.max(FTP + C_OP, FTP + C_OP + pd * lgd + CAP_COST);
+  $('finalRate').textContent = (rNew * 100).toFixed(2) + '%';
 
-  // ============ RENDER ============
-  document.getElementById('finalRate').textContent = (rFinal * 100).toFixed(2) + '%';
-
-  // Tags
   let tags = '';
-  if (data.sector === 'A') tags += '<span class="tag tag-red">A类硬科技 +'+(lambdaS*100).toFixed(0)+'%</span> ';
-  if (data.sector === 'B') tags += '<span class="tag tag-orange">B类技术驱动 +'+(lambdaS*100).toFixed(0)+'%</span> ';
-  if (data.sector === 'D') tags += '<span class="tag tag-green">D类平台型 '+(lambdaS*100).toFixed(0)+'%</span> ';
-  if (sCaf > 0.5) tags += '<span class="tag tag-green">高贡献客户 -'+(deltaCaf*10000).toFixed(0)+'BP</span> ';
-  else if (sCaf > 0.2) tags += '<span class="tag tag-blue">中等贡献 -'+(deltaCaf*10000).toFixed(0)+'BP</span> ';
-  else tags += '<span class="tag tag-orange">低贡献 -'+(deltaCaf*10000).toFixed(0)+'BP</span> ';
-  if (pd > 0.10) tags += '<span class="tag tag-red">高风险 PD='+(pd*100).toFixed(1)+'%</span> ';
-  else if (pd > 0.04) tags += '<span class="tag tag-orange">中风险 PD='+(pd*100).toFixed(1)+'%</span> ';
-  else tags += '<span class="tag tag-green">低风险 PD='+(pd*100).toFixed(1)+'%</span> ';
-  document.getElementById('tags').innerHTML = tags;
+  const sn = {A:'A类硬科技',B:'B类技术驱动',C:'C类短周期',D:'D类平台型'};
+  if (d.sector === 'A') tags += `<span class="tag tag-red">${sn.A} λ_s=+${(lambdaS*100).toFixed(0)}%</span> `;
+  else if (d.sector === 'B') tags += `<span class="tag tag-orange">${sn.B} λ_s=+${(lambdaS*100).toFixed(0)}%</span> `;
+  else if (d.sector === 'D') tags += `<span class="tag tag-green">${sn.D} λ_s=${(lambdaS*100).toFixed(0)}%</span> `;
+  else tags += `<span class="tag tag-blue">${sn.C} λ_s=0（基准）</span> `;
+  if (sCaf > 0.5) tags += `<span class="tag tag-green">高贡献 S=${(sCaf*100).toFixed(0)}% -${(deltaCaf*10000).toFixed(0)}BP</span> `;
+  else if (sCaf > 0.2) tags += `<span class="tag tag-blue">中等贡献 -${(deltaCaf*10000).toFixed(0)}BP</span> `;
+  else tags += `<span class="tag tag-orange">低贡献 -${(deltaCaf*10000).toFixed(0)}BP</span> `;
+  if (pd > 0.06) tags += `<span class="tag tag-red">PD=${(pd*100).toFixed(1)}%</span> `;
+  else if (pd > 0.025) tags += `<span class="tag tag-orange">PD=${(pd*100).toFixed(1)}%</span> `;
+  else tags += `<span class="tag tag-green">PD=${(pd*100).toFixed(1)}%</span> `;
+  if (rNew >= RATE_CAP - 0.0001) tags += `<span class="tag tag-red">触发上限3.50%</span> `;
+  if (rNew <= RATE_FLOOR + 0.0001) tags += `<span class="tag tag-blue">触发地板${(RATE_FLOOR*100).toFixed(2)}%</span> `;
+  $('tags').innerHTML = tags;
 
-  // Breakdown
-  document.getElementById('ftpLine').textContent = (FTP * 100).toFixed(2) + '%';
-  document.getElementById('opLine').textContent = (C_OP * 100).toFixed(2) + '%';
-  document.getElementById('elLine').textContent = (el * 100).toFixed(2) + '%';
-  document.getElementById('capLine').textContent = (CAP_COST * 100).toFixed(2) + '%';
-  document.getElementById('cafLine').textContent = '−' + (deltaCaf * 100).toFixed(2) + '%';
-  document.getElementById('finalLine').textContent = (rFinal * 100).toFixed(2) + '%';
+  const items = [
+    { label:'FTP\n资金成本', val:FTP, color:'#546e7a' },
+    { label:'运营\n成本', val:C_OP, color:'#607d8b' },
+    { label:'预期损失\nEL', val:el, color:'#ff7043' },
+    { label:'资本\n成本', val:CAP_COST, color:'#ffa726' },
+    { label:'CAF\n减点', val:-deltaCaf, color:'#66bb6a' },
+  ];
+  const maxH = 110, maxV = RATE_CAP * 1.1;
+  let cumul = 0, wfHtml = '';
+  for (let i = 0; i < items.length; i++) {
+    const it = items[i];
+    const h = Math.abs(it.val) / maxV * maxH;
+    const bottom = cumul / maxV * maxH;
+    wfHtml += `<div class="wf-col">
+      <div class="wf-val" style="color:${it.color}">${(it.val*100).toFixed(2)}%</div>
+      <div style="height:${maxH}px;position:relative;width:100%">
+        <div class="wf-bar" style="height:${h}px;background:${it.color};position:absolute;bottom:${bottom}px"></div>
+      </div>
+      <div class="wf-label">${it.label}</div>
+    </div>`;
+    cumul += it.val;
+    if (i < items.length - 1) wfHtml += `<div style="width:12px;height:${maxH}px;display:flex;align-items:center;justify-content:center"><span style="color:#8a9bb5;font-size:11px">+</span></div>`;
+  }
+  $('waterfall').innerHTML = wfHtml;
 
-  // Bars
-  const maxBar = Math.max(rFinal, rOld) * 1.15;
-  document.getElementById('ftpBar').style.width = (FTP / maxBar * 100) + '%';
-  document.getElementById('opBar').style.width = (C_OP / maxBar * 100) + '%';
-  document.getElementById('elBar').style.width = (el / maxBar * 100) + '%';
-  document.getElementById('capBar').style.width = (CAP_COST / maxBar * 100) + '%';
-  document.getElementById('cafBar').style.width = (deltaCaf / maxBar * 100) + '%';
+  $('elLine').textContent = (el * 100).toFixed(2) + '%';
+  $('cafLine').textContent = '−' + (deltaCaf * 100).toFixed(2) + '%';
+  $('finalLine').textContent = (rNew * 100).toFixed(2) + '%';
 
-  // Recommendation
+  const diff = (rOld - rNew) * 10000;
+  let diffHtml, diffBg;
+  if (Math.abs(diff) < 2) { diffHtml = '≈ 两版定价基本一致'; diffBg = 'rgba(255,255,255,0.04)'; }
+  else if (diff > 0) { diffHtml = `🔻 2.0版比1.0版低 <b>${diff.toFixed(0)} BP</b> — 综合贡献反哺`; diffBg = 'rgba(129,199,132,0.1)'; }
+  else { diffHtml = `🔺 2.0版比1.0版高 <b>${Math.abs(diff).toFixed(0)} BP</b> — 赛道风险覆盖`; diffBg = 'rgba(255,183,77,0.1)'; }
+  $('vsBox').innerHTML = `
+    <div class="vs-card old"><div class="vs-label">1.0版 传统定价<br><span style="font-size:9px">无赛道调节·无综合贡献</span></div>
+      <div class="vs-rate">${(rOld*100).toFixed(2)}%</div></div>
+    <div class="vs-card new"><div class="vs-label">2.0版 差异化定价<br><span style="font-size:9px">赛道调节·综合贡献联动</span></div>
+      <div class="vs-rate">${(rNew*100).toFixed(2)}%</div></div>
+    <div class="vs-diff" style="background:${diffBg}">${diffHtml}</div>`;
+
   let rec = '';
-  if (data.sector === 'A') {
+  if (d.sector === 'A') {
     rec = `<h3>💡 定价建议（A类硬科技赛道）</h3><ul>
-      <li>建议配套 <b>3–5年期贷款</b>，前两年只还息不还本，降低研发期现金流压力</li>
-      <li>建议总行给予 <b>FTP减点10–20BP</b>，由科技金融战略预算列支</li>
-      <li>信用评分中降低当期财务指标权重至 <b>30%</b>，提高研发进度/团队稳定性权重至 <b>40–50%</b></li>
-      <li>配套综合金融服务：认股权、募集资金托管、并购顾问</li></ul>`;
-  } else if (data.sector === 'B') {
+      <li>赛道风险溢价 +${(lambdaS*100).toFixed(0)}%，建议配套 <b>3-5年期</b>，前两年只还息不还本</li>
+      <li>总行给予 <b>FTP减点10-20BP</b>，由科技金融战略预算列支</li>
+      <li>信用评分降低财务指标权重至30%，提高研发进度/团队稳定性权重</li></ul>`;
+  } else if (d.sector === 'B') {
     rec = `<h3>💡 定价建议（B类中周期技术驱动）</h3><ul>
-      <li>建议 <b>2–3年期</b>，关注中试进度和在手订单</li>
-      <li>可适度上浮利率 <b>+10~25%</b> 覆盖技术不确定性</li>
+      <li>建议 <b>2-3年期</b>，关注中试进度与在手订单</li>
       <li>重点监控下游客户集中度，防范大客户依赖风险</li></ul>`;
-  } else if (pd > 0.10) {
+  } else if (sCaf > 0.5) {
+    rec = `<h3>✅ 优质客户 — 建议锁定</h3><ul>
+      <li>综合贡献评分 ${(sCaf*100).toFixed(0)}%，给予最大利率优惠增强黏性</li>
+      <li>纳入"绑不牢"重点维护名单，配套综合金融服务方案</li></ul>`;
+  } else if (pd > 0.06) {
     rec = `<h3>⚠️ 风险提示</h3><ul>
-      <li>该企业违约概率较高（PD=${(pd*100).toFixed(1)}%），建议审慎授信</li>
-      <li>如确需授信，建议追加担保措施或降低额度</li>
+      <li>违约概率 PD=${(pd*100).toFixed(1)}%，建议审慎授信或追加担保</li>
       <li>加强贷后监控频率，设置现金流异动预警</li></ul>`;
-  } else if (sCaf > 0.6) {
-    rec = `<h3>✅ 优质客户</h3><ul>
-      <li>该企业综合贡献较高，建议给予最大利率优惠以增强黏性</li>
-      <li>可配套营销：代发工资、企业网银、现金管理等高粘性产品</li>
-      <li>纳入"绑不牢"重点维护名单，定期回访</li></ul>`;
   } else {
     rec = `<h3>📋 常规建议</h3><ul>
       <li>利率水平适中，建议持续跟踪企业经营变化</li>
-      <li>可通过提升结算绑定、代发工资等方式提高综合贡献，获取后续利率优惠</li></ul>`;
+      <li>可通过提升结算绑定、代发工资提高综合贡献，获取后续利率优惠</li></ul>`;
   }
-  document.getElementById('recommend').innerHTML = `<div class="recommend-box">${rec}</div>`;
-
-  // VS box
-  const diff = (rOld - rFinal) * 10000; // in BP
-  document.getElementById('vsBox').innerHTML = `
-    <div class="vs-card old">
-      <div class="vs-label">1.0版 传统定价<br><span style="font-size:11px">(无赛道调节 + 无综合贡献)</span></div>
-      <div class="vs-rate">${(rOld*100).toFixed(2)}%</div>
-    </div>
-    <div class="vs-card new">
-      <div class="vs-label">2.0版 差异化定价<br><span style="font-size:11px">(赛道调节 + 综合贡献联动)</span></div>
-      <div class="vs-rate">${(rFinal*100).toFixed(2)}%</div>
-    </div>
-    <div class="diff-badge">
-      ${diff > 1 ? '🔻 2.0版比1.0版低 ' + diff.toFixed(0) + ' BP（综合贡献反哺）' :
-        diff < -1 ? '🔺 2.0版比1.0版高 ' + Math.abs(diff).toFixed(0) + ' BP（赛道风险覆盖）' :
-        '≈ 两版定价基本一致'}
-    </div>`;
+  $('recommend').innerHTML = `<div class="recommend-box">${rec}</div>`;
 }
 
-// Initial calculation
-calculate();
+loadPreset('yunzhi');
 </script>
 </body>
 </html>
