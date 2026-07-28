@@ -48,11 +48,12 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 .tag-orange{background:rgba(255,183,77,0.2);color:#ffb74d}
 .tag-red{background:rgba(239,83,80,0.2);color:#ef5350}
 
-.waterfall{display:flex;align-items:flex-end;gap:4px;height:130px;margin:12px 0;padding:0 6px}
-.wf-col{flex:1;display:flex;flex-direction:column;align-items:center;position:relative}
-.wf-bar{border-radius:4px 4px 0 0;width:100%;min-width:32px;transition:height .4s;position:relative}
-.wf-val{font-size:10px;font-weight:700;margin-bottom:2px;text-align:center}
-.wf-label{font-size:9px;color:#8a9bb5;text-align:center;margin-top:4px;line-height:1.2}
+/* Fixed waterfall: use relative heights with max cap */
+.waterfall{display:flex;align-items:flex-end;gap:4px;height:140px;margin:12px 0;padding:0 6px;position:relative}
+.wf-col{flex:1;display:flex;flex-direction:column;align-items:center;position:relative;min-width:36px}
+.wf-bar{border-radius:4px 4px 0 0;width:100%;transition:height .4s;position:relative}
+.wf-val{font-size:9px;font-weight:700;margin-bottom:2px;text-align:center;white-space:nowrap}
+.wf-label{font-size:8px;color:#8a9bb5;text-align:center;margin-top:4px;line-height:1.2}
 
 .breakdown{margin-top:12px}
 .breakdown h3{font-size:12px;color:#4fc3f7;margin-bottom:8px}
@@ -88,7 +89,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 
 <div class="preset-bar">
   <button class="preset-btn" onclick="loadPreset('xinyuan')"><span class="name">🔬 芯原生物</span><span class="tag">A类硬科技·低贡献</span></button>
-  <button class="preset-btn" onclick="loadPreset('yunzhi')"><span class="name">💻 云智软件</span><span class="tag">C类短周期·高贡献</span></button>
+  <button class="preset-btn" onclick="loadPreset('yunzhi')"><span class="name"> 云智软件</span><span class="tag">C类短周期·高贡献</span></button>
   <button class="preset-btn" onclick="loadPreset('jinggong')"><span class="name">⚙️ 精工装备</span><span class="tag">B类中周期·中贡献</span></button>
   <button class="preset-btn" onclick="loadPreset('kece')"><span class="name">🔧 科测检测</span><span class="tag">D类平台型·低贡献</span></button>
 </div>
@@ -97,7 +98,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 <div class="panel">
 <h2><span class="icon">📋</span> 企业信息录入</h2>
 
-<div class="form-section"><h3>🏷️ 基本信息</h3>
+<div class="form-section"><h3>️ 基本信息</h3>
 <div class="form-row">
   <div class="form-group"><label>成立年限（年）</label><input type="number" id="age" value="5" min="0" max="30"></div>
   <div class="form-group"><label>员工人数</label><input type="number" id="employees" value="65" min="2" max="5000"></div>
@@ -140,7 +141,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 </div>
 </div>
 
-<div class="form-section"><h3>🛡️ 信用与担保</h3>
+<div class="form-section"><h3>️ 信用与担保</h3>
 <div class="form-row">
   <div class="form-group"><label>历史逾期次数</label><input type="number" id="overdue" value="0" min="0" max="10"></div>
   <div class="form-group"><label>抵质押覆盖率</label>
@@ -163,7 +164,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 <div class="form-group"><label>合作年限（年）</label><input type="number" id="relYears" value="3" min="0" max="15"></div>
 </div>
 
-<div class="form-section"><h3>🎯 行业赛道</h3>
+<div class="form-section"><h3> 行业赛道</h3>
 <div class="form-group"><select id="sector">
   <option value="A">A类 — 长周期硬科技（创新药/集成电路/航空航天）</option>
   <option value="B">B类 — 中周期技术驱动（高端装备/新材料/医疗器械）</option>
@@ -186,11 +187,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 <div class="tags" id="tags"></div>
 <div class="waterfall" id="waterfall"></div>
 <div class="breakdown">
-<h3>🔍 定价拆解明细</h3>
+<h3> 定价拆解明细</h3>
 <div class="breakdown-row"><span class="label">FTP 资金成本</span><span class="val" style="color:#90a4ae" id="ftpLine">1.50%</span></div>
 <div class="breakdown-row"><span class="label">运营成本率 c</span><span class="val" style="color:#90a4ae" id="opLine">0.15%</span></div>
-<div class="breakdown-row"><span class="label">预期损失 EL = PD×LGD×(1+λ_s)</span><span class="val" style="color:#ff8a65" id="elLine">--</span></div>
-<div class="breakdown-row"><span class="label">资本成本 RW×k×RAROC*</span><span class="val" style="color:#ffb74d" id="capLine">0.63%</span></div>
+<div class="breakdown-row"><span class="label">风险调整 EL = β×PD×LGD×(1+λ_s)</span><span class="val" style="color:#ff8a65" id="elLine">--</span></div>
+<div class="breakdown-row"><span class="label">资本成本 RW×k×RAROC*</span><span class="val" style="color:#ffb74d" id="capLine">0.40%</span></div>
 <div class="breakdown-row"><span class="label">综合贡献减点 Δ_CAF</span><span class="val" style="color:#81c784" id="cafLine">--</span></div>
 <div class="breakdown-row total"><span>2.0版最终执行利率</span><span class="val" id="finalLine">--</span></div>
 </div>
@@ -200,8 +201,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 </div>
 </div>
 <div class="footer">
-  参数基准：2026年7月 1年期LPR 3.0% | FTP=1.50% c=0.15% RAROC*=8% LGD基准=30% δ_max=20BP | 利率区间 2.5%–3.5%<br>
-  公式：r = min(3.50%, max(FTP+c, FTP + c + PD×LGD×(1+λ_s) + RW×k×RAROC* − Δ_CAF))
+  参数基准：2026年7月 1年期LPR 3.0% | FTP=1.50% c=0.15% RAROC*=6% LGD基准=22% β=40% δ_max=20BP | 区间 2.5%–3.5%<br>
+  公式：r = min(3.50%, max(1.65%, FTP+c + β×PD×LGD×(1+λ_s) + RW×k×RAROC* − Δ_CAF))
 </div>
 
 <script>
@@ -209,13 +210,13 @@ const $ = id => document.getElementById(id);
 
 const FTP = 0.015;
 const C_OP = 0.0015;
-const CAP_COST = 0.0063;
+const CAP_COST = 0.004;
+const EL_WEIGHT = 0.4;
 const DELTA_MAX = 0.002;
-const LGD_BASE = 0.3;
+const LGD_MAP = {"gov": 0.1, "collateral": 0.12, "patent": 0.18, "credit": 0.22};
+const SECTOR_LAMBDA = {"A": 0.15, "B": 0.08, "C": 0.0, "D": -0.05};
 const RATE_CAP = 0.035;
 const RATE_FLOOR = 0.0165;
-const SECTOR_LAMBDA = {"A": 0.25, "B": 0.12, "C": 0.0, "D": -0.08};
-const LGD_MAP = {"gov": 0.12, "collateral": 0.15, "patent": 0.22, "credit": 0.3};
 
 const PRESETS = {
   xinyuan: { age:3, employees:28, lifecycle:'1', patents:12, rdRatio:35, patentQuality:70,
@@ -242,9 +243,6 @@ function loadPreset(key) {
     const el = document.getElementById(id);
     if (el) { el.value = val; el.dispatchEvent(new Event('input')); }
   }
-  ['rdRatioVal','pqVal','rgVal','levVal','crVal','ocfVal','ccVal'].forEach(id => {
-    const e = document.getElementById(id); if (e) e.textContent = '';
-  });
   document.getElementById('rdRatioVal').textContent = p.rdRatio + '%';
   document.getElementById('pqVal').textContent = p.patentQuality + '%';
   document.getElementById('rgVal').textContent = (p.revGrowth > 0 ? '+' : '') + p.revGrowth + '%';
@@ -259,22 +257,23 @@ function loadPreset(key) {
 
 function estimatePD(d) {
   let z = 0;
-  z += 0.30 * (d.leverage / 100 - 0.45);
-  z += 0.45 * Math.min(d.overdue, 4) / 2;
-  if (d.lifecycle == 0) z += 0.20; else if (d.lifecycle == 1) z += 0.08;
-  z -= 0.35 * (d.rdRatio / 100);
-  z -= 0.30 * Math.max(-0.5, d.revGrowth / 100);
-  z -= 0.50 * d.ocfCover;
-  z -= 0.25 * Math.max(0, d.curRatio - 1.0);
-  z -= 0.18 * Math.min(Math.log(Math.max(d.revenue, 30)) / Math.log(10) - 1.5, 2);
-  z -= 0.18 * Math.min(d.patents / 15, 1);
-  z -= 0.15 * (d.patentQuality / 100);
-  z -= 0.25 * (d.guarantee === 'gov' ? 1 : d.guarantee === 'collateral' ? 0.6 : d.guarantee === 'patent' ? 0.4 : 0);
-  z -= 0.18 * (d.teamBg / 3);
-  if (d.leverage > 55 && d.curRatio < 1.0) z += 0.25;
-  if (d.rdRatio > 10 && d.ocfCover > 0.2) z -= 0.15;
-  const pd = 1.0 / (1.0 + Math.exp(-(z + 0.9)));
-  return Math.max(0.003, Math.min(0.25, pd));
+  z += 0.15 * (d.leverage / 100 - 0.50);
+  z += 0.30 * Math.min(d.overdue, 4) / 2;
+  if (d.lifecycle == 0) z += 0.15;
+  else if (d.lifecycle == 1) z += 0.05;
+  z -= 0.50 * (d.rdRatio / 100);
+  z -= 0.40 * Math.max(-0.5, d.revGrowth / 100);
+  z -= 0.80 * d.ocfCover;
+  z -= 0.40 * Math.max(0, d.curRatio - 1.0);
+  z -= 0.25 * Math.min((Math.log(Math.max(d.revenue, 30)) / Math.log(10) - 1.5), 2);
+  z -= 0.25 * Math.min(d.patents / 15, 1);
+  z -= 0.30 * (d.patentQuality / 100);
+  z -= 0.35 * (d.guarantee === 'gov' ? 1 : d.guarantee === 'collateral' ? 0.6 : d.guarantee === 'patent' ? 0.4 : 0);
+  z -= 0.25 * (d.teamBg / 3);
+  if (d.leverage > 55 && d.curRatio < 1.0) z += 0.20;
+  if (d.rdRatio > 10 && d.ocfCover > 0.2) z -= 0.20;
+  const pd = 1.0 / (1.0 + Math.exp(-(z - 0.5)));
+  return Math.max(0.003, Math.min(0.30, pd));
 }
 
 function calculate() {
@@ -296,17 +295,18 @@ function calculate() {
   let lgd = LGD_MAP[d.guarantee];
   lgd = Math.max(0.05, Math.min(0.45, lgd * (1 - 0.5 * (d.collCover / 100))));
   const lambdaS = SECTOR_LAMBDA[d.sector];
-  const el = pd * lgd * (1 + lambdaS);
-  const elOld = pd * lgd;
+  
+  // 2.0版: full EL with sector adjustment
+  const el = EL_WEIGHT * pd * lgd * (1 + lambdaS);
+  // 1.0版: no sector adjustment, 70% discount
+  const elOld = EL_WEIGHT * pd * lgd * 0.7;
 
   const depositRatio = d.revenue > 0 ? Math.min(d.deposit / Math.max(d.revenue / 12 * 0.3, 1), 1) : 0;
   const sCaf = 0.30*Math.min(depositRatio,1) + 0.25*Math.min(d.payroll/30,1) + 0.25*Math.min(d.settleCnt/20,1) + 0.15*Math.min(d.crossSell/6,1) + 0.05*Math.min(d.relYears/12,1);
   const deltaCaf = DELTA_MAX * sCaf;
 
-  const rOldUncap = FTP + C_OP + elOld + CAP_COST;
-  const rOld = Math.max(RATE_FLOOR, rOldUncap);
-  const rNewUncap = FTP + C_OP + el + CAP_COST - deltaCaf;
-  const rNew = Math.min(RATE_CAP, Math.max(RATE_FLOOR, rNewUncap));
+  const rOld = Math.max(RATE_FLOOR, FTP + C_OP + elOld + CAP_COST);
+  const rNew = Math.min(RATE_CAP, Math.max(RATE_FLOOR, FTP + C_OP + el + CAP_COST - deltaCaf));
 
   $('finalRate').textContent = (rNew * 100).toFixed(2) + '%';
 
@@ -319,26 +319,27 @@ function calculate() {
   if (sCaf > 0.5) tags += `<span class="tag tag-green">高贡献 S=${(sCaf*100).toFixed(0)}% -${(deltaCaf*10000).toFixed(0)}BP</span> `;
   else if (sCaf > 0.2) tags += `<span class="tag tag-blue">中等贡献 -${(deltaCaf*10000).toFixed(0)}BP</span> `;
   else tags += `<span class="tag tag-orange">低贡献 -${(deltaCaf*10000).toFixed(0)}BP</span> `;
-  if (pd > 0.06) tags += `<span class="tag tag-red">PD=${(pd*100).toFixed(1)}%</span> `;
-  else if (pd > 0.025) tags += `<span class="tag tag-orange">PD=${(pd*100).toFixed(1)}%</span> `;
+  if (pd > 0.10) tags += `<span class="tag tag-red">PD=${(pd*100).toFixed(1)}%</span> `;
+  else if (pd > 0.04) tags += `<span class="tag tag-orange">PD=${(pd*100).toFixed(1)}%</span> `;
   else tags += `<span class="tag tag-green">PD=${(pd*100).toFixed(1)}%</span> `;
   if (rNew >= RATE_CAP - 0.0001) tags += `<span class="tag tag-red">触发上限3.50%</span> `;
-  if (rNew <= RATE_FLOOR + 0.0001) tags += `<span class="tag tag-blue">触发地板${(RATE_FLOOR*100).toFixed(2)}%</span> `;
   $('tags').innerHTML = tags;
 
+  // Waterfall with capped heights
   const items = [
     { label:'FTP\n资金成本', val:FTP, color:'#546e7a' },
     { label:'运营\n成本', val:C_OP, color:'#607d8b' },
-    { label:'预期损失\nEL', val:el, color:'#ff7043' },
+    { label:'风险调整\nEL', val:el, color:'#ff7043' },
     { label:'资本\n成本', val:CAP_COST, color:'#ffa726' },
     { label:'CAF\n减点', val:-deltaCaf, color:'#66bb6a' },
   ];
-  const maxH = 110, maxV = RATE_CAP * 1.1;
+  const maxH = 120;
+  const maxV = Math.max(RATE_CAP, rOld) * 1.05;
   let cumul = 0, wfHtml = '';
   for (let i = 0; i < items.length; i++) {
     const it = items[i];
-    const h = Math.abs(it.val) / maxV * maxH;
-    const bottom = cumul / maxV * maxH;
+    const h = Math.min(Math.abs(it.val) / maxV * maxH, maxH * 0.85);
+    const bottom = Math.min(cumul / maxV * maxH, maxH * 0.95);
     wfHtml += `<div class="wf-col">
       <div class="wf-val" style="color:${it.color}">${(it.val*100).toFixed(2)}%</div>
       <div style="height:${maxH}px;position:relative;width:100%">
@@ -347,7 +348,7 @@ function calculate() {
       <div class="wf-label">${it.label}</div>
     </div>`;
     cumul += it.val;
-    if (i < items.length - 1) wfHtml += `<div style="width:12px;height:${maxH}px;display:flex;align-items:center;justify-content:center"><span style="color:#8a9bb5;font-size:11px">+</span></div>`;
+    if (i < items.length - 1) wfHtml += `<div style="width:10px;height:${maxH}px;display:flex;align-items:center;justify-content:center"><span style="color:#8a9bb5;font-size:10px">+</span></div>`;
   }
   $('waterfall').innerHTML = wfHtml;
 
@@ -381,7 +382,7 @@ function calculate() {
     rec = `<h3>✅ 优质客户 — 建议锁定</h3><ul>
       <li>综合贡献评分 ${(sCaf*100).toFixed(0)}%，给予最大利率优惠增强黏性</li>
       <li>纳入"绑不牢"重点维护名单，配套综合金融服务方案</li></ul>`;
-  } else if (pd > 0.06) {
+  } else if (pd > 0.10) {
     rec = `<h3>⚠️ 风险提示</h3><ul>
       <li>违约概率 PD=${(pd*100).toFixed(1)}%，建议审慎授信或追加担保</li>
       <li>加强贷后监控频率，设置现金流异动预警</li></ul>`;
