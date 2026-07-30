@@ -257,15 +257,16 @@ function estimatePD(d){
 
 function runComparison(){
   const d={
-    revenue:+$('revenue').value||1800,revGrowth:+$('revGrowth').value||45,
-    leverage:+$('leverage').value||45,curRatio:+$('curRatio').value||1.8,
-    ocfCover:+$('ocfCover').value||0.4,overdue:+$('overdue').value||0,
-    rdRatio:+$('rdRatio').value||20,patents:+$('patents').value||8,
-    guarantee:$('guarantee').value,sector:$('sector').value,
-    deposit:+$('deposit').value||200,payroll:+$('payroll').value||65,
-    settleCnt:+$('settleCnt').value||30,crossSell:+$('crossSell').value||4,
-    relYears:+$('relYears').value||3,age:+$('age').value||5,
-    employees:+$('employees').value||65,lifecycle:+$('lifecycle').value
+    revenue:+$("revenue").value||1800,revGrowth:+$("revGrowth").value||45,
+    leverage:+$("leverage").value||45,curRatio:+$("curRatio").value||1.8,
+    ocfCover:+$("ocfCover").value||0.4,overdue:+$("overdue").value||0,
+    rdRatio:+$("rdRatio").value||20,patents:+$("patents").value||8,
+    patentQuality:40,teamBg:'2',
+    guarantee:$("guarantee").value,sector:$("sector").value,
+    deposit:+$("deposit").value||200,payroll:+$("payroll").value||65,
+    settleCnt:+$("settleCnt").value||30,crossSell:+$("crossSell").value||4,
+    relYears:+$("relYears").value||3,age:+$("age").value||5,
+    employees:+$("employees").value||65,lifecycle:+$("lifecycle").value
   };
   const pd=estimatePD(d);
   let lgd=LGD_MAP[d.guarantee];
