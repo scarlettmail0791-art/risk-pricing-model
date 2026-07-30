@@ -221,10 +221,10 @@ const SECTOR_LAMBDA={"A": 0.15, "B": 0.08, "C": 0.0, "D": -0.05};
 const LGD_MAP={"gov": 0.1, "collateral": 0.12, "patent": 0.18, "credit": 0.22};
 
 const PRESETS={
-  xinyuan:{patentQuality:70,teamBg:'3',revenue:200,revGrowth:5,leverage:35,curRatio:2.8,ocfCover:0.05,overdue:0,rdRatio:35,patents:12,guarantee:'gov',sector:'A',deposit:15,payroll:28,settleCnt:5,crossSell:1,relYears:1,age:3,employees:28,lifecycle:'1'},
-  yunzhi:{patentQuality:40,teamBg:'2',revenue:1800,revGrowth:45,leverage:45,curRatio:1.8,ocfCover:0.40,overdue:0,rdRatio:20,patents:8,guarantee:'credit',sector:'C',deposit:200,payroll:65,settleCnt:30,crossSell:4,relYears:3,age:5,employees:65,lifecycle:'2'},
-  jinggong:{patentQuality:50,teamBg:'2',revenue:3000,revGrowth:25,leverage:62,curRatio:0.9,ocfCover:0.15,overdue:1,rdRatio:12,patents:15,guarantee:'patent',sector:'B',deposit:100,payroll:0,settleCnt:12,crossSell:2,relYears:2,age:4,employees:120,lifecycle:'2'},
-  kece:{patentQuality:10,teamBg:'1',revenue:900,revGrowth:10,leverage:30,curRatio:2.2,ocfCover:0.50,overdue:0,rdRatio:5,patents:2,guarantee:'credit',sector:'D',deposit:60,payroll:0,settleCnt:8,crossSell:1,relYears:6,age:8,employees:40,lifecycle:'3'}
+  xinyuan:{collCover:0,patentQuality:70,teamBg:'3',revenue:200,revGrowth:5,leverage:35,curRatio:2.8,ocfCover:0.05,overdue:0,rdRatio:35,patents:12,guarantee:'gov',sector:'A',deposit:15,payroll:28,settleCnt:5,crossSell:1,relYears:1,age:3,employees:28,lifecycle:'1'},
+  yunzhi:{collCover:0,patentQuality:40,teamBg:'2',collCover:0,revenue:1800,revGrowth:45,leverage:45,curRatio:1.8,ocfCover:0.40,overdue:0,rdRatio:20,patents:8,guarantee:'credit',sector:'C',deposit:200,payroll:65,settleCnt:30,crossSell:4,relYears:3,age:5,employees:65,lifecycle:'2'},
+  jinggong:{collCover:30,patentQuality:50,teamBg:'2',revenue:3000,revGrowth:25,leverage:62,curRatio:0.9,ocfCover:0.15,overdue:1,rdRatio:12,patents:15,guarantee:'patent',sector:'B',deposit:100,payroll:0,settleCnt:12,crossSell:2,relYears:2,age:4,employees:120,lifecycle:'2'},
+  kece:{collCover:10,patentQuality:10,teamBg:'1',revenue:900,revGrowth:10,leverage:30,curRatio:2.2,ocfCover:0.50,overdue:0,rdRatio:5,patents:2,guarantee:'credit',sector:'D',deposit:60,payroll:0,settleCnt:8,crossSell:1,relYears:6,age:8,employees:40,lifecycle:'3'}
 };
 
 function loadPreset(key){
@@ -261,7 +261,7 @@ function runComparison(){
     leverage:+$("leverage").value||45,curRatio:+$("curRatio").value||1.8,
     ocfCover:+$("ocfCover").value||0.4,overdue:+$("overdue").value||0,
     rdRatio:+$("rdRatio").value||20,patents:+$("patents").value||8,
-    patentQuality:40,teamBg:'2',
+    patentQuality:40,teamBg:'2',collCover:0,
     guarantee:$("guarantee").value,sector:$("sector").value,
     deposit:+$("deposit").value||200,payroll:+$("payroll").value||65,
     settleCnt:+$("settleCnt").value||30,crossSell:+$("crossSell").value||4,
@@ -270,6 +270,7 @@ function runComparison(){
   };
   const pd=estimatePD(d);
   let lgd=LGD_MAP[d.guarantee];
+  lgd=Math.max(0.05,Math.min(0.45,lgd*(1-0.5*(d.collCover/100))));
   const lambdaS=SECTOR_LAMBDA[d.sector];
   const el=EL_WEIGHT*pd*lgd*(1+lambdaS);
   const elOld=EL_WEIGHT*pd*lgd*0.7;
