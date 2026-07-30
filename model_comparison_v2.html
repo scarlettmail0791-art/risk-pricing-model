@@ -187,7 +187,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 </div>
 </div>
 <div class="footer">
-  仿真数据 N=1050 家科技型小微企业 | 2.0版公式：r = min(3.50%, max(1.65%, 1.65% + β×PD×LGD×(1+λ_s) + 0.40% − Δ_CAF))<br>
+  仿真数据 N=1050 家科技型小微企业 | 2.0版公式：r = min(3.50%, max(2.50%, 1.65% + β×PD×LGD×(1+λ_s) + 0.40% − Δ_CAF))<br>
   参数：FTP=1.50% c=0.15% RAROC*=6% LGD基准=22% β=40% δ_max=20BP | 定价区间 2.5%–3.5%
 </div>
 
@@ -216,15 +216,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Micr
 </script>
 <script>
 const $=id=>document.getElementById(id);
-const FTP=0.015,C_OP=0.0015,CAP_COST=0.004,EL_WEIGHT=0.4,DELTA_MAX=0.002,RATE_CAP=0.035,RATE_FLOOR=0.0165;
+const FTP=0.015,C_OP=0.0015,CAP_COST=0.004,EL_WEIGHT=0.4,DELTA_MAX=0.002,RATE_CAP=0.035,RATE_FLOOR=0.0250;
 const SECTOR_LAMBDA={"A": 0.15, "B": 0.08, "C": 0.0, "D": -0.05};
 const LGD_MAP={"gov": 0.1, "collateral": 0.12, "patent": 0.18, "credit": 0.22};
 
 const PRESETS={
-  xinyuan:{revenue:200,revGrowth:5,leverage:35,curRatio:2.8,ocfCover:0.05,overdue:0,rdRatio:35,patents:12,guarantee:'gov',sector:'A',deposit:15,payroll:28,settleCnt:5,crossSell:1,relYears:1,age:3,employees:28,lifecycle:'1'},
-  yunzhi:{revenue:1800,revGrowth:45,leverage:45,curRatio:1.8,ocfCover:0.40,overdue:0,rdRatio:20,patents:8,guarantee:'credit',sector:'C',deposit:200,payroll:65,settleCnt:30,crossSell:4,relYears:3,age:5,employees:65,lifecycle:'2'},
-  jinggong:{revenue:3000,revGrowth:25,leverage:62,curRatio:0.9,ocfCover:0.15,overdue:1,rdRatio:12,patents:15,guarantee:'patent',sector:'B',deposit:100,payroll:0,settleCnt:12,crossSell:2,relYears:2,age:4,employees:120,lifecycle:'2'},
-  kece:{revenue:900,revGrowth:10,leverage:30,curRatio:2.2,ocfCover:0.50,overdue:0,rdRatio:5,patents:2,guarantee:'credit',sector:'D',deposit:60,payroll:0,settleCnt:8,crossSell:1,relYears:6,age:8,employees:40,lifecycle:'3'}
+  xinyuan:{patentQuality:70,teamBg:'3',revenue:200,revGrowth:5,leverage:35,curRatio:2.8,ocfCover:0.05,overdue:0,rdRatio:35,patents:12,guarantee:'gov',sector:'A',deposit:15,payroll:28,settleCnt:5,crossSell:1,relYears:1,age:3,employees:28,lifecycle:'1'},
+  yunzhi:{patentQuality:40,teamBg:'2',revenue:1800,revGrowth:45,leverage:45,curRatio:1.8,ocfCover:0.40,overdue:0,rdRatio:20,patents:8,guarantee:'credit',sector:'C',deposit:200,payroll:65,settleCnt:30,crossSell:4,relYears:3,age:5,employees:65,lifecycle:'2'},
+  jinggong:{patentQuality:50,teamBg:'2',revenue:3000,revGrowth:25,leverage:62,curRatio:0.9,ocfCover:0.15,overdue:1,rdRatio:12,patents:15,guarantee:'patent',sector:'B',deposit:100,payroll:0,settleCnt:12,crossSell:2,relYears:2,age:4,employees:120,lifecycle:'2'},
+  kece:{patentQuality:10,teamBg:'1',revenue:900,revGrowth:10,leverage:30,curRatio:2.2,ocfCover:0.50,overdue:0,rdRatio:5,patents:2,guarantee:'credit',sector:'D',deposit:60,payroll:0,settleCnt:8,crossSell:1,relYears:6,age:8,employees:40,lifecycle:'3'}
 };
 
 function loadPreset(key){
@@ -246,7 +246,9 @@ function estimatePD(d){
   z-=0.40*Math.max(0,d.curRatio-1.0);
   z-=0.25*Math.min((Math.log(Math.max(d.revenue,30))/Math.log(10)-1.5),2);
   z-=0.25*Math.min(d.patents/15,1);
+  z-=0.30*(d.patentQuality/100);
   z-=0.35*(d.guarantee==='gov'?1:d.guarantee==='collateral'?0.6:d.guarantee==='patent'?0.4:0);
+  z-=0.25*(d.teamBg/3);
   if(d.leverage>55&&d.curRatio<1.0)z+=0.20;
   if(d.rdRatio>10&&d.ocfCover>0.2)z-=0.20;
   const pd=1.0/(1.0+Math.exp(-(z-0.5)));
